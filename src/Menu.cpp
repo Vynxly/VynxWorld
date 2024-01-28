@@ -164,24 +164,27 @@ namespace DX11_Base {
     namespace Styles {
         void InitStyle()
         {
-            ImGuiStyle& style = ImGui::GetStyle();
+            ImGuiStyle* style = &ImGui::GetStyle();
             ImVec4* colors = ImGui::GetStyle().Colors;
 
             //	STYLE PROPERTIES
-            style.WindowPadding = ImVec2(15, 15);
-            style.WindowRounding = 5.0f;
-            style.FramePadding = ImVec2(5, 5);
-            style.FrameRounding = 4.0f;
-            style.ItemSpacing = ImVec2(12, 8);
-            style.ItemInnerSpacing = ImVec2(8, 6);
-            style.IndentSpacing = 25.0f;
-            style.ScrollbarSize = 15.0f;
-            style.ScrollbarRounding = 9.0f;
-            style.GrabMinSize = 5.0f;
-            style.GrabRounding = 3.0f;
+            //Borders
+            ImGui::GetStyle().WindowBorderSize = 0.0f;
+            ImGui::GetStyle().FrameBorderSize = 0.0f;
+            ImGui::GetStyle().PopupBorderSize = 0.0f;
+
+            //Rounding
+            ImGui::GetStyle().WindowRounding = 0.0f;
+            ImGui::GetStyle().ChildRounding = 0.0f;
+            ImGui::GetStyle().FrameRounding = 0.0f;
+            ImGui::GetStyle().PopupRounding = 0.0f;
+            ImGui::GetStyle().ScrollbarRounding = 0.0f;
+            ImGui::GetStyle().GrabRounding = 0.0f;
+            ImGui::GetStyle().LogSliderDeadzone = 0.0f;
+            ImGui::GetStyle().TabRounding = 0.0f;
 
             //  Base ImGui Styling , Aplying a custyom style is left up to you.
-            ImGui::StyleColorsDark();
+            //ImGui::StyleColorsDark();
 
             /// EXAMPLE COLOR 
             //colors[ImGuiCol_FrameBg] = ImVec4(0, 0, 0, 0);
@@ -196,43 +199,59 @@ namespace DX11_Base {
             }
             else {
                 /// YOUR DEFAULT STYLE PROPERTIES HERE
-                colors[ImGuiCol_Text] = ImVec4(0.80f, 0.80f, 0.83f, 1.00f);
-                colors[ImGuiCol_TextDisabled] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-                colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-                colors[ImGuiCol_PopupBg] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-                colors[ImGuiCol_Border] = ImVec4(0.80f, 0.80f, 0.83f, 0.88f);
-                colors[ImGuiCol_BorderShadow] = ImVec4(0.92f, 0.91f, 0.88f, 0.00f);
-                colors[ImGuiCol_FrameBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-                colors[ImGuiCol_FrameBgHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-                colors[ImGuiCol_FrameBgActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-                colors[ImGuiCol_TitleBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-                colors[ImGuiCol_TitleBgCollapsed] = ImVec4(1.00f, 0.98f, 0.95f, 0.75f);
-                colors[ImGuiCol_TitleBgActive] = ImVec4(0.07f, 0.07f, 0.09f, 1.00f);
-                colors[ImGuiCol_MenuBarBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-                colors[ImGuiCol_ScrollbarBg] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-                colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-                colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-                colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-                colors[ImGuiCol_CheckMark] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-                colors[ImGuiCol_SliderGrab] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-                colors[ImGuiCol_SliderGrabActive] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-                colors[ImGuiCol_Button] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-                colors[ImGuiCol_ButtonHovered] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
-                colors[ImGuiCol_ButtonActive] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-                colors[ImGuiCol_Header] = ImVec4(0.10f, 0.09f, 0.12f, 1.00f);
-                colors[ImGuiCol_HeaderHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-                colors[ImGuiCol_HeaderActive] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-                colors[ImGuiCol_ResizeGrip] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-                colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.56f, 0.56f, 0.58f, 1.00f);
-                colors[ImGuiCol_ResizeGripActive] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-                colors[ImGuiCol_PlotLines] = ImVec4(0.40f, 0.39f, 0.38f, 0.63f);
-                colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
-                colors[ImGuiCol_PlotHistogram] = ImVec4(0.40f, 0.39f, 0.38f, 0.63f);
-                colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.25f, 1.00f, 0.00f, 1.00f);
-                colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
-                colors[ImGuiCol_Tab] = ImVec4(0.06f, 0.05f, 0.07f, 1.00f);
-                colors[ImGuiCol_TabActive] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
-                colors[ImGuiCol_TabHovered] = ImVec4(0.80f, 0.80f, 0.83f, 0.31f);
+                colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+                colors[ImGuiCol_TextDisabled] = ImVec4(0.40f, 0.40f, 0.40f, 1.00f);
+                colors[ImGuiCol_WindowBg] = ImVec4(0.07f, 0.07f, 0.07f, 1.00f);
+                colors[ImGuiCol_ChildBg] = ImVec4(0.07f, 0.07f, 0.07f, 1.00f);
+                colors[ImGuiCol_PopupBg] = ImVec4(0.07f, 0.07f, 0.07f, 1.00f);
+                colors[ImGuiCol_Border] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+                colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+                colors[ImGuiCol_FrameBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_FrameBgHovered] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_FrameBgActive] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_TitleBg] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_TitleBgActive] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.00f, 0.00f, 0.00f, 0.51f);
+                colors[ImGuiCol_MenuBarBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_ScrollbarBg] = ImVec4(0.02f, 0.02f, 0.02f, 0.53f);
+                colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_CheckMark] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_SliderGrab] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_SliderGrabActive] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_Button] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_ButtonHovered] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_ButtonActive] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_Header] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_HeaderHovered] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_HeaderActive] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_Separator] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_SeparatorHovered] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_SeparatorActive] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_ResizeGrip] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_ResizeGripActive] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_Tab] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_TabHovered] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_TabActive] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_TabUnfocused] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_PlotLines] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
+                colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_PlotHistogram] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_TableHeaderBg] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_TableBorderStrong] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_TableBorderLight] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
+                colors[ImGuiCol_TableRowBg] = ImVec4(0.07f, 0.07f, 0.07f, 1.00f);
+                colors[ImGuiCol_TableRowBgAlt] = ImVec4(1.00f, 1.00f, 1.00f, 0.06f);
+                colors[ImGuiCol_TextSelectedBg] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_DragDropTarget] = ImVec4(0.459f, 0.188f, 0.651f, 1.0f);
+                colors[ImGuiCol_NavHighlight] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_NavWindowingHighlight] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
+                colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.05f, 0.52f, 0.13f, 1.00f);
             }
         }
     }
@@ -242,25 +261,25 @@ namespace DX11_Base {
         {
 
             //�л�����һ��
-            ImGui::Checkbox("ESP", &Config.IsESP);
+            //ImGui::Checkbox("ESP", &Config.IsESP);
 
-            ImGui::Checkbox("Debug ESP", &Config.isDebugESP);
+            //ImGui::Checkbox("Debug ESP", &Config.isDebugESP);
 
-            ImGui::Checkbox("InfAmmo", &Config.IsInfinAmmo);
+            ImGui::Checkbox("Infinite Ammo", &Config.IsInfinAmmo);
 
-            ImGui::Checkbox("SpeedHack", &Config.IsSpeedHack);
+            ImGui::Checkbox("Speed Hack", &Config.IsSpeedHack);
 
-            ImGui::Checkbox("AttackHack", &Config.IsAttackModiler);
+            ImGui::Checkbox("Attack Hack", &Config.IsAttackModiler);
 
-            ImGui::Checkbox("DefenseHack", &Config.IsDefuseModiler);
+            ImGui::Checkbox("Defense Hack", &Config.IsDefuseModiler);
 
-            ImGui::Checkbox("InfStamina", &Config.IsInfStamina);
+            ImGui::Checkbox("Infinite Stamina", &Config.IsInfStamina);
 
             ImGui::Checkbox("Godmode", &Config.IsMuteki);
 
-            ImGui::Checkbox("Revive", &Config.IsRevive);
+            //ImGui::Checkbox("Revive", &Config.IsRevive);
 
-            if (ImGui::Button("RandomName", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("Randomize Name", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 if (Config.GetPalPlayerCharacter() != NULL)
                 {
@@ -277,24 +296,24 @@ namespace DX11_Base {
                 }
             }
 
-            ImGui::Checkbox("Open Manager", &Config.bisOpenManager);
+            //ImGui::Checkbox("Open Manager", &Config.bisOpenManager);
 
             //��������һ��
-            ImGui::SliderFloat("SpeedModifilers", &Config.SpeedModiflers, 1, 10);
-            ImGui::SliderInt("AttackModifilers", &Config.DamageUp, 0, 200000);
-            ImGui::SliderInt("defenseModifilers", &Config.DefuseUp, 0, 200000);
+            ImGui::SliderFloat("Speed Multiplier", &Config.SpeedModiflers, 1, 10);
+            ImGui::SliderInt("Attack Multiplier", &Config.DamageUp, 0, 200000);
+            ImGui::SliderInt("Defense Multiplier", &Config.DefuseUp, 0, 200000);
 
             //��ť����һ��
-            if (ImGui::Button("PrintPlayerAddr", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            /*if (ImGui::Button("PrintPlayerAddr", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
                 if (p_appc != NULL)
                 {
                     g_Console->printdbg("\n\n[+] APalPlayerCharacter: %x [+]\n\n", g_Console->color.green, p_appc);
                 }
-            }
+            }*/
 
-            if (ImGui::Button("PrintCoords", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("Print Coords", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
                 if (p_appc != NULL)
@@ -323,7 +342,7 @@ namespace DX11_Base {
         {
             //�����õİ�
             //Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->RequestSpawnMonsterForPlayer(name, 5, 1);
-            ImGui::Checkbox("SafeTeleport", &Config.IsSafe);
+            ImGui::Checkbox("Safe Teleports", &Config.IsSafe);
             ImGui::InputFloat3("Pos:", Config.Pos);
 
             if (ImGui::Button("Coord TP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
@@ -342,7 +361,7 @@ namespace DX11_Base {
             }
 
             ImGui::InputInt("EXP:", &Config.EXP);
-            if (ImGui::Button("Give exp", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("Give EXP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
                 if (p_appc != NULL)
@@ -394,7 +413,7 @@ namespace DX11_Base {
                     }
                 }
             }*/
-            if (ImGui::Button("Teleport Home", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("Base Teleport", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
                 if (p_appc != NULL)
@@ -418,30 +437,13 @@ namespace DX11_Base {
 
             }
 
-            if (ImGui::Button("ToggleFly", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("Toggle Float", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 Config.IsToggledFly = !Config.IsToggledFly;
                 ExploitFly(Config.IsToggledFly);
             }
 
-            if (ImGui::Button("NormalHealth", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
-            {
-                SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
-                if (p_appc != NULL)
-                {
-                    if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
-                    {
-                        if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
-                        {
-                            SDK::FFixedPoint fixpoint = SDK::FFixedPoint();
-                            fixpoint.Value = Config.GetPalPlayerCharacter()->CharacterParameterComponent->GetMaxHP().Value;
-                            Config.GetPalPlayerCharacter()->ReviveCharacter_ToServer(fixpoint);
-                        }
-                    }
-                }
-            }
-
-            if (ImGui::Button("GodHealth", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("God Health", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
                 if (p_appc != NULL)
@@ -458,7 +460,24 @@ namespace DX11_Base {
                 }
             }
 
-            if (ImGui::Button("MaxWeight", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("Normal Health", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            {
+                SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
+                if (p_appc != NULL)
+                {
+                    if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
+                    {
+                        if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
+                        {
+                            SDK::FFixedPoint fixpoint = SDK::FFixedPoint();
+                            fixpoint.Value = Config.GetPalPlayerCharacter()->CharacterParameterComponent->GetMaxHP().Value;
+                            Config.GetPalPlayerCharacter()->ReviveCharacter_ToServer(fixpoint);
+                        }
+                    }
+                }
+            }
+
+            if (ImGui::Button("Max Weight", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
                 if (p_appc != NULL)
@@ -486,7 +505,7 @@ namespace DX11_Base {
             static int num_to_add = 1;
             static int category = 0;
 
-            ImGui::InputInt("Num To Add", &num_to_add);
+            ImGui::InputInt("Amount:", &num_to_add);
 
             ImGui::Combo("Item Category", &category, "Accessories\0Ammo\0Armor\0Crafting Materials\0Eggs\0Food\0Hats\0\Medicine\0Money\0Other\0Pal Spheres\0Seeds\0Tools\0Weapons\0\All\0");
 
@@ -707,7 +726,7 @@ namespace DX11_Base {
     
         void TABGameBreaking()
         {
-            if (ImGui::Button("Max Level<50>", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("Max Level (LVL 50)", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
                 if (p_appc != NULL)
@@ -752,7 +771,7 @@ namespace DX11_Base {
                     ((SDK::APalPlayerState*)pPalCharacter->PlayerState)->RequestObtainLevelObject_ToServer(relic);
                 }
             }
-            if (ImGui::Button("Killaura", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            if (ImGui::Button("Kill Aura", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 if (Config.GetPalPlayerCharacter() != NULL)
                 {
@@ -785,10 +804,10 @@ namespace DX11_Base {
      
         void TABConfig()
         {
-            ImGui::Text("SoTMaulder Menu");
-            ImGui::Text("Version: v2.7");
-            ImGui::Text("Credits to: bluesword007");
-            ImGui::Text("Credits to: Palworld Offsets UnknownCheats.me");
+            ImGui::Text("VynxWorld | Palworld Exploit Tool");
+            ImGui::Text("Version: v1.0");
+            ImGui::Text("https://vynx.dev");
+            ImGui::Text("Credits to: bluesword007 & itzkaydo");
 
             ImGui::Spacing();
             ImGui::Separator();
@@ -805,16 +824,16 @@ namespace DX11_Base {
 
 	void Menu::Draw()
 	{
-        if (Config.IsESP)
-        {
-            ESP();
-        }
+        //if (Config.IsESP)
+        //{
+        //    ESP();
+        //}
 		if (g_GameVariables->m_ShowMenu)
 			MainMenu();
-        if (Config.bisOpenManager && g_GameVariables->m_ShowMenu)
-        {
-            ManagerMenu();
-        }
+        //if (Config.bisOpenManager && g_GameVariables->m_ShowMenu)
+        //{
+        //    ManagerMenu();
+        //}
 
 		if (g_GameVariables->m_ShowHud)
 			HUD(&g_GameVariables->m_ShowHud);
@@ -825,117 +844,117 @@ namespace DX11_Base {
         if (Config.isDebugESP)
             ESP_DEBUG(Config.mDebugESPDistance, ImVec4(0.24f, 0.23f, 0.29f, 1.00f));
 	}
-    void Menu::ManagerMenu()
-    {
-        if (ImGui::Begin("Manager", &g_GameVariables->m_ShowMenu, 96))
-        {
-            if (Config.GetUWorld() != NULL)
-            {
-                ImGui::Checkbox("filterPlayer", &Config.filterPlayer);
-                SDK::TArray<SDK::AActor*> T = Config.GetUWorld()->PersistentLevel->Actors;
-                for (int i = 0; i < T.Num(); i++)
-                {
-                    if (T[i] != NULL)
-                    {
-                        if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
-                        {
-                            SDK::APalCharacter* Character = (SDK::APalCharacter*)T[i];
-                            SDK::FString name;
-                            if (Config.filterPlayer)
-                            {
-                                if (!T[i]->IsA(SDK::APalPlayerCharacter::StaticClass()))
-                                {
-                                    continue;
-                                }
-                            }
-                            if (T[i]->IsA(SDK::APalPlayerCharacter::StaticClass()))
-                            {
-                                if (!Character) { continue; }
-                                Character->CharacterParameterComponent->GetNickname(&name);
-                            }
-                            else
-                            {
-                                SDK::UKismetStringLibrary* lib = SDK::UKismetStringLibrary::GetDefaultObj();
-                                if (!Character) { continue; }
-                                std::string s = Character->GetFullName();
-                                size_t firstUnderscorePos = s.find('_');
+    //void Menu::ManagerMenu()
+    //{
+    //    if (ImGui::Begin("Manager", &g_GameVariables->m_ShowMenu, 96))
+    //    {
+    //        if (Config.GetUWorld() != NULL)
+    //        {
+    //            ImGui::Checkbox("filterPlayer", &Config.filterPlayer);
+    //            SDK::TArray<SDK::AActor*> T = Config.GetUWorld()->PersistentLevel->Actors;
+    //            for (int i = 0; i < T.Num(); i++)
+    //            {
+    //                if (T[i] != NULL)
+    //                {
+    //                    if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
+    //                    {
+    //                        SDK::APalCharacter* Character = (SDK::APalCharacter*)T[i];
+    //                        SDK::FString name;
+    //                        if (Config.filterPlayer)
+    //                        {
+    //                            if (!T[i]->IsA(SDK::APalPlayerCharacter::StaticClass()))
+    //                            {
+    //                                continue;
+    //                            }
+    //                        }
+    //                        if (T[i]->IsA(SDK::APalPlayerCharacter::StaticClass()))
+    //                        {
+    //                            if (!Character) { continue; }
+    //                            Character->CharacterParameterComponent->GetNickname(&name);
+    //                        }
+    //                        else
+    //                        {
+    //                            SDK::UKismetStringLibrary* lib = SDK::UKismetStringLibrary::GetDefaultObj();
+    //                            if (!Character) { continue; }
+    //                            std::string s = Character->GetFullName();
+    //                            size_t firstUnderscorePos = s.find('_');
 
-                                if (firstUnderscorePos != std::string::npos) {
-                                    std::string result = s.substr(firstUnderscorePos + 1);
+    //                            if (firstUnderscorePos != std::string::npos) {
+    //                                std::string result = s.substr(firstUnderscorePos + 1);
 
-                                    size_t secondUnderscorePos = result.find('_');
+    //                                size_t secondUnderscorePos = result.find('_');
 
-                                    if (secondUnderscorePos != std::string::npos) {
-                                        result = result.substr(0, secondUnderscorePos);
-                                    }
-                                    wchar_t  ws[255];
-                                    swprintf(ws, 255, L"%hs", result);
-                                    name = SDK::FString(ws);
-                                }
-                            }
-                            ImGui::Text(name.ToString().c_str());
-                            ImGui::SameLine();
-                            ImGui::PushID(i);
-                            if (ImGui::Button("Kill"))
-                            {
-                                if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
-                                {
-                                    Damage(Character, 99999999999);
-                                }
-                                continue;
-                            }
-                            ImGui::SameLine();
-                            if (ImGui::Button("TP"))
-                            {
-                                if (Config.GetPalPlayerCharacter() != NULL)
-                                {
-                                    if (!Character) { continue; }
-                                    SDK::FVector vector = Character->K2_GetActorLocation();
-                                    AnyWhereTP(vector, Config.IsSafe);
-                                }
-                            }
+    //                                if (secondUnderscorePos != std::string::npos) {
+    //                                    result = result.substr(0, secondUnderscorePos);
+    //                                }
+    //                                wchar_t  ws[255];
+    //                                swprintf(ws, 255, L"%hs", result);
+    //                                name = SDK::FString(ws);
+    //                            }
+    //                        }
+    //                        ImGui::Text(name.ToString().c_str());
+    //                        ImGui::SameLine();
+    //                        ImGui::PushID(i);
+    //                        if (ImGui::Button("Kill"))
+    //                        {
+    //                            if (T[i]->IsA(SDK::APalCharacter::StaticClass()))
+    //                            {
+    //                                Damage(Character, 99999999999);
+    //                            }
+    //                            continue;
+    //                        }
+    //                        ImGui::SameLine();
+    //                        if (ImGui::Button("TP"))
+    //                        {
+    //                            if (Config.GetPalPlayerCharacter() != NULL)
+    //                            {
+    //                                if (!Character) { continue; }
+    //                                SDK::FVector vector = Character->K2_GetActorLocation();
+    //                                AnyWhereTP(vector, Config.IsSafe);
+    //                            }
+    //                        }
 
-                            /*if (Character->IsA(SDK::APalPlayerCharacter::StaticClass()))
-                            {
-                                ImGui::SameLine();
-                                if (ImGui::Button("Boss"))
-                                {
-                                    if (Config.GetPalPlayerCharacter() != NULL)
-                                    {
-                                        auto controller = Config.GetPalPlayerCharacter()->GetPalPlayerController();
-                                        if (controller != NULL)
-                                        {
-                                            controller->Transmitter->BossBattle->RequestBossBattleEntry_ToServer(SDK::EPalBossType::ElectricBoss, (SDK::APalPlayerCharacter*)Character);
-                                            controller->Transmitter->BossBattle->RequestBossBattleStart_ToServer(SDK::EPalBossType::ElectricBoss, (SDK::APalPlayerCharacter*)Character);
-                                        }
-                                    }
-                                }
-                            }*/
-                            if (Character->IsA(SDK::APalPlayerCharacter::StaticClass()))
-                            {
-                                ImGui::SameLine();
-                                if (ImGui::Button("MaskIt"))
-                                {
-                                    if (Config.GetPalPlayerCharacter() != NULL)
-                                    {
-                                        auto controller = Config.GetPalPlayerCharacter()->GetPalPlayerController();
-                                        if (controller != NULL)
-                                        {
-                                            auto player = (SDK::APalPlayerCharacter*)Character;
-                                            SDK::FString fakename;
-                                            player->CharacterParameterComponent->GetNickname(&fakename);
-                                            Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->UpdateCharacterNickName_ToServer(Config.GetPalPlayerCharacter()->CharacterParameterComponent->IndividualHandle->ID, fakename);
-                                        }
-                                    }
-                                }
-                            }
-                            ImGui::PopID();
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //                        /*if (Character->IsA(SDK::APalPlayerCharacter::StaticClass()))
+    //                        {
+    //                            ImGui::SameLine();
+    //                            if (ImGui::Button("Boss"))
+    //                            {
+    //                                if (Config.GetPalPlayerCharacter() != NULL)
+    //                                {
+    //                                    auto controller = Config.GetPalPlayerCharacter()->GetPalPlayerController();
+    //                                    if (controller != NULL)
+    //                                    {
+    //                                        controller->Transmitter->BossBattle->RequestBossBattleEntry_ToServer(SDK::EPalBossType::ElectricBoss, (SDK::APalPlayerCharacter*)Character);
+    //                                        controller->Transmitter->BossBattle->RequestBossBattleStart_ToServer(SDK::EPalBossType::ElectricBoss, (SDK::APalPlayerCharacter*)Character);
+    //                                    }
+    //                                }
+    //                            }
+    //                        }*/
+    //                        if (Character->IsA(SDK::APalPlayerCharacter::StaticClass()))
+    //                        {
+    //                            ImGui::SameLine();
+    //                            if (ImGui::Button("MaskIt"))
+    //                            {
+    //                                if (Config.GetPalPlayerCharacter() != NULL)
+    //                                {
+    //                                    auto controller = Config.GetPalPlayerCharacter()->GetPalPlayerController();
+    //                                    if (controller != NULL)
+    //                                    {
+    //                                        auto player = (SDK::APalPlayerCharacter*)Character;
+    //                                        SDK::FString fakename;
+    //                                        player->CharacterParameterComponent->GetNickname(&fakename);
+    //                                        Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->UpdateCharacterNickName_ToServer(Config.GetPalPlayerCharacter()->CharacterParameterComponent->IndividualHandle->ID, fakename);
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+    //                        ImGui::PopID();
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
 	void Menu::MainMenu()
 	{
@@ -948,7 +967,7 @@ namespace DX11_Base {
             ImGui::PushStyleColor(ImGuiCol_BorderShadow, ImVec4(g_Menu->dbg_RAINBOW));
             //ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(g_Menu->dbg_RAINBOW));
         }
-        if (!ImGui::Begin("SoTMaulder Palworld", &g_GameVariables->m_ShowMenu, 96))
+        if (!ImGui::Begin("VynxWorld | Palworld Exploit Tool", &g_GameVariables->m_ShowMenu, 96))
         {
             ImGui::End();
             return;
@@ -962,7 +981,7 @@ namespace DX11_Base {
         //  Display Menu Content
         //Tabs::TABMain();
 
-        ImGui::Text("W.I.P. Some Functions Might Not work.");
+        ImGui::Text("https://vynx.dev");
 
         if (ImGui::BeginTabBar("##tabs", ImGuiTabBarFlags_None))
         {
@@ -1023,25 +1042,25 @@ namespace DX11_Base {
             }
         }
 
-        if ((GetAsyncKeyState(VK_F2) & 1) && IsGameActive())
-        {
-            SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
-            if (p_appc != NULL)
-            {
-                if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
-                {
-                    if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
-                    {
-                        SDK::FVector PlayerLocation = p_appc->K2_GetActorLocation();
-                        float PosX = PlayerLocation.X;
-                        float PosY = PlayerLocation.Y;
-                        float PosZ = PlayerLocation.Z;
+        //if ((GetAsyncKeyState(VK_F2) & 1) && IsGameActive())
+        //{
+        //    SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
+        //    if (p_appc != NULL)
+        //    {
+        //        if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
+        //        {
+        //            if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
+        //            {
+        //                SDK::FVector PlayerLocation = p_appc->K2_GetActorLocation();
+        //                float PosX = PlayerLocation.X;
+        //                float PosY = PlayerLocation.Y;
+        //                float PosZ = PlayerLocation.Z;
 
-                        Config.SaveLocation(Config.BossName, PosX, PosY, PosZ);
-                    }
-                }
-            }
-        }
+        //                Config.SaveLocation(Config.BossName, PosX, PosY, PosZ);
+        //            }
+        //        }
+        //    }
+        //}
 
         if ((GetAsyncKeyState(VK_F5) & 1))
         {
@@ -1129,16 +1148,16 @@ namespace DX11_Base {
                 }
             }
         }
-        if (Config.IsRevive)
-        {
-            if (Config.GetPalPlayerCharacter() != NULL)
-            {
-                if (Config.GetPalPlayerCharacter()->CharacterParameterComponent != NULL)
-                {
-                    Config.GetPalPlayerCharacter()->CharacterParameterComponent->ResetDyingHP();
-                }
-            }
-        }
+        //if (Config.IsRevive)
+        //{
+        //    if (Config.GetPalPlayerCharacter() != NULL)
+        //    {
+        //        if (Config.GetPalPlayerCharacter()->CharacterParameterComponent != NULL)
+        //        {
+        //            Config.GetPalPlayerCharacter()->CharacterParameterComponent->ResetDyingHP();
+        //        }
+        //    }
+        //}
  
     }
 }
