@@ -1,5 +1,7 @@
 # VynxWorld | Palworld Multiplayer Exploit Tool
 
+![VynxWorld](https://github.com/Vynxly/VynxWorld/assets/35917981/55ab5f73-fb3f-474d-94fe-7186a05dba23)
+
 # Player Features
 - God Mode
 - Speed Multiplier
@@ -7,6 +9,7 @@
 - Player Defense Multiplier
 - Infinite Stamina
 - Infinite Ammo
+- Randomize Online Name
 
 # Exploits
 - Base Teleport
@@ -14,6 +17,11 @@
 - Toggle Floating
 - God Health  
 - Give EXP
+- Max Weight
+- Modify Catch Rate
+- Max Level (LVL 50)
+- Collect All Effigies
+- Kill Aura
 
 # Item Spawner
 - Spawn any item of your choice into your inventory instantly.
