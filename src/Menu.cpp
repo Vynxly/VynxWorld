@@ -265,7 +265,7 @@ namespace DX11_Base {
 
             //ImGui::Checkbox("Debug ESP", &Config.isDebugESP);
 
-            ImGui::Checkbox("Infinite Ammo", &Config.IsInfinAmmo);
+            ImGui::Checkbox("Godmode", &Config.IsMuteki);
 
             ImGui::Checkbox("Speed Hack", &Config.IsSpeedHack);
 
@@ -275,7 +275,7 @@ namespace DX11_Base {
 
             ImGui::Checkbox("Infinite Stamina", &Config.IsInfStamina);
 
-            ImGui::Checkbox("Godmode", &Config.IsMuteki);
+            ImGui::Checkbox("Infinite Ammo", &Config.IsInfinAmmo);
 
             //ImGui::Checkbox("Revive", &Config.IsRevive);
 
@@ -360,6 +360,30 @@ namespace DX11_Base {
                 }
             }
 
+            if (ImGui::Button("Base Teleport", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            {
+                SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
+                if (p_appc != NULL)
+                {
+                    if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
+                    {
+                        if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
+                        {
+                            if (Config.IsSafe)
+                            {
+                                Config.GetPalPlayerCharacter()->GetPalPlayerController()->TeleportToSafePoint_ToServer();
+                            }
+                            else
+                            {
+                                Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->RequestRespawn();
+                            }
+
+                        }
+                    }
+                }
+
+            }
+
             ImGui::InputInt("EXP:", &Config.EXP);
             if (ImGui::Button("Give EXP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
@@ -413,29 +437,6 @@ namespace DX11_Base {
                     }
                 }
             }*/
-            if (ImGui::Button("Base Teleport", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
-            {
-                SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
-                if (p_appc != NULL)
-                {
-                    if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
-                    {
-                        if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
-                        {
-                            if (Config.IsSafe)
-                            {
-                                Config.GetPalPlayerCharacter()->GetPalPlayerController()->TeleportToSafePoint_ToServer();
-                            }
-                            else
-                            {
-                                Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->RequestRespawn();
-                            }
-
-                        }
-                    }
-                }
-
-            }
 
             if (ImGui::Button("Toggle Float", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
@@ -503,7 +504,7 @@ namespace DX11_Base {
         void TABItemSpawner()
         {
             static int num_to_add = 1;
-            static int category = 0;
+            static int category = 10;
 
             ImGui::InputInt("Amount:", &num_to_add);
 
