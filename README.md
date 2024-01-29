@@ -1,8 +1,7 @@
 # VynxWorld | Palworld Multiplayer Exploit Tool
 ## https://vynx.dev
 
-
-![VynxWorld](https://github.com/Vynxly/VynxWorld/assets/35917981/55ab5f73-fb3f-474d-94fe-7186a05dba23)
+![Palworld-Win64-Shipping_6Bh3w9Rv1s](https://github.com/Vynxly/VynxWorld/assets/35917981/38323e8d-fb01-464f-a094-1451b8dd0828)
 
 # Player Features
 - God Mode
@@ -11,7 +10,7 @@
 - Player Defense Multiplier
 - Infinite Stamina
 - Infinite Ammo
-- Randomize Online Name
+- Change Character Name
 
 # Exploits
 - Base Teleport
