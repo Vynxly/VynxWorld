@@ -25,6 +25,8 @@
 - Collect All Effigies
 - Unlock All Fast Travel Points (Manual for now)
 - Kill Aura
+- Boss Battle Kill Aura
+- Crash Server
 
 # Item Spawner
 - Spawn any item of your choice into your inventory instantly.

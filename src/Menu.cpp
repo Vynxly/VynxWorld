@@ -798,6 +798,16 @@ namespace DX11_Base {
                 }
 
             }
+            if (ImGui::Button("Crash Server", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))//
+            {
+                if (Config.GetPalPlayerCharacter() != NULL)
+                {
+                    if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
+                    {
+                        Config.GetPalPlayerCharacter()->GetPalPlayerController()->RequestLiftup_ToServer(NULL);
+                    }
+                }
+            }
             if (ImGui::Button("Kill Aura", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 if (Config.GetPalPlayerCharacter() != NULL)
@@ -827,8 +837,45 @@ namespace DX11_Base {
                     }
                 }
             }
-         }
-     
+            if (ImGui::Button("Boss Battle Kill Aura", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            {
+                if (Config.GetPalPlayerCharacter() != NULL)
+                {
+                    auto localplayer = Config.GetPalPlayerCharacter();
+                    if (localplayer->GetPalPlayerController() != NULL)
+                    {
+                        auto localcontroller = localplayer->GetPalPlayerController();
+                        //localcontroller->Transmitter->BossBattle->RequestBossBattleEntry_ToServer(SDK::EPalBossType::GrassBoss, Config.GetPalPlayerCharacter());
+                        if (Config.GetUWorld() != NULL)
+                        {
+                            SDK::TArray<SDK::AActor*> T = Config.GetUWorld()->PersistentLevel->Actors;
+                            if (T.IsValid())
+                            {
+                                for (int i = 0; i < T.Num(); i++)
+                                {
+                                    if (T[i] != NULL)
+                                    {
+                                        if (T[i]->IsA(SDK::APalPlayerCharacter::StaticClass()))
+                                        {
+                                            auto other = (SDK::APalPlayerCharacter*)T[i];
+                                            if (other->GetPalPlayerController() != NULL)
+                                            {
+                                                if (other->GetPalPlayerController()->IsLocalPlayerController())
+                                                {
+                                                    continue;
+                                                }
+                                            }
+                                            localcontroller->Transmitter->BossBattle->RequestBossBattleEntry_ToServer(SDK::EPalBossType::ElectricBoss, other);
+                                        }
+                                    }
+                                }
+                            }
+                            localcontroller->Transmitter->BossBattle->RequestBossBattleStart_ToServer(SDK::EPalBossType::ElectricBoss, localplayer);
+                        }
+                    }
+                }
+            }
+        }
         void TABConfig()
         {
             ImGui::Text("VynxWorld | Palworld Exploit Tool");
