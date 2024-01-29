@@ -21,6 +21,7 @@
 - Modify Catch Rate
 - Max Level (LVL 50)
 - Collect All Effigies
+- Unlock All Fast Travel Points (Manual for now)
 - Kill Aura
 
 # Item Spawner

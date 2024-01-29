@@ -279,23 +279,21 @@ namespace DX11_Base {
 
             //ImGui::Checkbox("Revive", &Config.IsRevive);
 
-            if (ImGui::Button("Randomize Name", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            ImGui::InputText("Character Name", Config.CharName, sizeof(Config.CharName));
+            if (ImGui::Button("Change Name", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
             {
                 if (Config.GetPalPlayerCharacter() != NULL)
                 {
                     if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
                     {
                         SDK::UKismetStringLibrary* lib = SDK::UKismetStringLibrary::GetDefaultObj();
-                        std::string s = rand_str(20);
 
                         wchar_t  ws[255];
-                        swprintf(ws, 255, L"%hs", s.c_str());
-
+                        swprintf(ws, 255, L"%hs", Config.CharName);
                         Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->NetworkIndividualComponent->UpdateCharacterNickName_ToServer(Config.GetPalPlayerCharacter()->CharacterParameterComponent->IndividualHandle->ID, SDK::FString(ws));
                     }
                 }
             }
-
             //ImGui::Checkbox("Open Manager", &Config.bisOpenManager);
 
             //��������һ��
@@ -770,6 +768,42 @@ namespace DX11_Base {
                     }
 
                     ((SDK::APalPlayerState*)pPalCharacter->PlayerState)->RequestObtainLevelObject_ToServer(relic);
+                }
+            }
+            if (ImGui::Button("Go To Locked Fast Travel", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20))) //credit to bennett
+            {
+                SDK::APalPlayerCharacter* pPalCharacter = Config.GetPalPlayerCharacter();
+                if (!pPalCharacter)
+                    return;
+
+                SDK::UWorld* world = Config.GetUWorld();
+                if (!world)
+                    return;
+
+                SDK::TUObjectArray* objects = world->GObjects;
+
+                for (int i = 0; i < objects->NumElements; ++i) {
+                    SDK::UObject* object = objects->GetByIndex(i);
+
+                    if (!object) {
+                        continue;
+                    }
+
+                    if (!object->IsA(SDK::APalLevelObjectUnlockableFastTravelPoint::StaticClass())) {
+                        continue;
+                    }
+
+                    SDK::APalLevelObjectUnlockableFastTravelPoint* travel = (SDK::APalLevelObjectUnlockableFastTravelPoint*)object;
+                    if (!travel) {
+                        continue;
+                    }
+                    if (travel->bUnlocked)
+                    {
+                        continue;
+                    }
+
+                    SDK::FVector loc = travel->K2_GetActorLocation();
+                    AnyWhereTP(loc, false);
                 }
             }
             if (ImGui::Button("Kill Aura", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))

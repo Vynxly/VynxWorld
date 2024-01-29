@@ -85,6 +85,7 @@ public:
 	float Pos[3] = { 0,0,0 };
 	char ItemName[255];
 	char PalName[255];
+	char CharName[255];
 	static char inputBuffer[100];
 	char inputTextBuffer[255] = "";
 	SDK::UWorld* gWorld = nullptr;
