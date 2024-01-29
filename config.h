@@ -59,7 +59,7 @@ public:
 	bool IsAttackModiler = false;
 	bool IsDefuseModiler = false;
 	bool IsInfStamina = false;
-	bool IsSafe = false;
+	bool IsSafe = true;
 	bool IsInfinAmmo = false;
 	bool IsMuteki = false;
 	bool IsAdmin = true;
@@ -79,7 +79,7 @@ public:
 	int DamageUp = 0;
 	int DefuseUp = 0;
 	int EXP = 0;
-	int Item = 0;
+	int Item = 1;
 	int PalRank = 0;
 	int MaxWeight = 9999999;
 	float Pos[3] = { 0,0,0 };
