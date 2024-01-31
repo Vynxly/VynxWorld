@@ -13,25 +13,22 @@
 - Change Character Name
 
 # Exploits
-- Base Teleport
-- Coords TP
 - Toggle Floating
 - God Health  
 - Give EXP
-- Max Weight
-- Modify Catch Rate
 - Max Level (LVL 50)
 - Collect All Effigies
-- Unlock All Fast Travel Points (Manual for now)
+- Unlock All Fast Travel Points Available On Map
 - Kill Aura
 - Boss Battle Kill Aura
 - Crash Server
+- Bypass Container Passwords
 
 # Item Spawner
 - Spawn any item of your choice into your inventory instantly.
 
-# Quick Teleport
-- Choose from a list of Pals to teleport to instantly.
+# Teleport
+- Choose from a list of Pals to teleport to instantly or create your own waypoints!
 
 ## External Library Credits
 [Dear ImGui](https://github.com/ocornut/imgui)  
