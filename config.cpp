@@ -46,6 +46,19 @@ SDK::UWorld* config::GetUWorld()
     return (*(SDK::UWorld**)(gworld_ptr));
 }
 
+SDK::ULocalPlayer* config::GetLocalPlayer()
+{
+    SDK::UWorld* pWorld = Config.gWorld;
+    if (!pWorld)
+        return nullptr;
+
+    SDK::UGameInstance* pGameInstance = pWorld->OwningGameInstance;
+    if (!pGameInstance)
+        return nullptr;
+
+    return pGameInstance->LocalPlayers[0];
+}
+
 SDK::UPalCharacterImportanceManager* config::GetCharacterImpManager()
 {
     SDK::UWorld* pWorld = Config.gWorld;

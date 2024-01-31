@@ -28,6 +28,7 @@ void ESP()
 		ImGui::GetBackgroundDrawList()->AddText(nullptr, 16, ImVec2(10, 10 + (i * 30)), ImColor(128, 0, 0), T[i]->GetFullName().c_str());
 }
 
+
 void ESP_DEBUG(float mDist, ImVec4 color, UClass* mEntType)
 {
 	APalPlayerCharacter* pLocalPlayer = Config.GetPalPlayerCharacter();
@@ -71,6 +72,40 @@ void ESP_DEBUG(float mDist, ImVec4 color, UClass* mEntType)
 	}
 }
 
+
+void ForceJoinGuild(SDK::APalCharacter* targetPlayer)
+{
+	if (!targetPlayer->CharacterParameterComponent->IndividualHandle)
+		return;
+
+	if (!Config.GetPalPlayerCharacter()->GetPalPlayerController())
+		return;
+
+	UPalNetworkGroupComponent* group = Config.GetPalPlayerCharacter()->GetPalPlayerController()->Transmitter->Group;
+	if (!group)
+		return;
+
+	SDK::FGuid myPlayerId = Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPlayerUId();
+	SDK::FGuid playerId = targetPlayer->CharacterParameterComponent->IndividualHandle->ID.PlayerUId;
+
+	group->RequestJoinGuildForPlayer_ToServer(myPlayerId, playerId);       // One of these does the trick
+	group->RequestJoinGuildRequestForPlayer_ToServer(myPlayerId, playerId);
+}
+
+void GiveTechExploit(__int32 Tech)
+{
+	SDK::APalPlayerCharacter* pPalPlayerCharacter = Config.GetPalPlayerCharacter();
+	if (!pPalPlayerCharacter)
+		return;
+
+	APalPlayerController* pPalPlayerController = pPalPlayerCharacter->GetPalPlayerController();
+	if (!pPalPlayerController)
+		return;
+
+
+
+	pPalPlayerController->Transmitter->GetPlayer()->RequestAddTechnolgyPoint_ToServer(Tech);
+}
 
 void DrawUActorComponent(SDK::TArray<SDK::UActorComponent*> Comps, ImColor color)
 {
