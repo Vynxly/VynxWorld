@@ -1,7 +1,8 @@
 # VynxWorld | Palworld Multiplayer Exploit Tool
 ## https://vynx.dev
 
-![Palworld-Win64-Shipping_6Bh3w9Rv1s](https://github.com/Vynxly/VynxWorld/assets/35917981/38323e8d-fb01-464f-a094-1451b8dd0828)
+![Palworld-Win64-Shipping_6Qqsu9oji9](https://github.com/Vynxly/VynxWorld/assets/35917981/ea1a29bd-6745-4e12-a97b-1c6e75ff1e26)
+
 
 # Player Features
 - God Mode
