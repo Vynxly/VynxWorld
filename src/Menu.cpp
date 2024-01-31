@@ -161,6 +161,10 @@ void ExploitFly(bool IsFly)
 
 namespace DX11_Base {
 
+    char inputBuffer_getFnAddr[100];
+    char inputBuffer_getClass[100];
+    char inputBuffer_setWaypoint[32];
+
     namespace Styles {
         void InitStyle()
         {
@@ -340,47 +344,47 @@ namespace DX11_Base {
         {
             //�����õİ�
             //Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->RequestSpawnMonsterForPlayer(name, 5, 1);
-            ImGui::Checkbox("Safe Teleports", &Config.IsSafe);
-            ImGui::InputFloat3("Pos:", Config.Pos);
+            //ImGui::Checkbox("Safe Teleports", &Config.IsSafe);
+            //ImGui::InputFloat3("Pos:", Config.Pos);
 
-            if (ImGui::Button("Coord TP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
-            {
-                if (Config.GetPalPlayerCharacter() != NULL)
-                {
-                    if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
-                    {
-                        if (Config.Pos != NULL)
-                        {
-                            SDK::FVector vector = { Config.Pos[0],Config.Pos[1],Config.Pos[2] };
-                            AnyWhereTP(vector, Config.IsSafe);
-                        }
-                    }
-                }
-            }
+            //if (ImGui::Button("Coord TP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            //{
+            //    if (Config.GetPalPlayerCharacter() != NULL)
+            //    {
+            //        if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
+            //        {
+            //            if (Config.Pos != NULL)
+            //            {
+            //                SDK::FVector vector = { Config.Pos[0],Config.Pos[1],Config.Pos[2] };
+            //                AnyWhereTP(vector, Config.IsSafe);
+            //            }
+            //        }
+            //    }
+            //}
 
-            if (ImGui::Button("Base Teleport (F5)", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
-            {
-                SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
-                if (p_appc != NULL)
-                {
-                    if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
-                    {
-                        if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
-                        {
-                            if (Config.IsSafe)
-                            {
-                                Config.GetPalPlayerCharacter()->GetPalPlayerController()->TeleportToSafePoint_ToServer();
-                            }
-                            else
-                            {
-                                Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->RequestRespawn();
-                            }
+            //if (ImGui::Button("Base Teleport (F5)", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            //{
+            //    SDK::APalPlayerCharacter* p_appc = Config.GetPalPlayerCharacter();
+            //    if (p_appc != NULL)
+            //    {
+            //        if (Config.GetPalPlayerCharacter()->GetPalPlayerController() != NULL)
+            //        {
+            //            if (Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState() != NULL)
+            //            {
+            //                if (Config.IsSafe)
+            //                {
+            //                    Config.GetPalPlayerCharacter()->GetPalPlayerController()->TeleportToSafePoint_ToServer();
+            //                }
+            //                else
+            //                {
+            //                    Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->RequestRespawn();
+            //                }
 
-                        }
-                    }
-                }
+            //            }
+            //        }
+            //    }
 
-            }
+            //}
 
             ImGui::InputInt("EXP:", &Config.EXP);
             if (ImGui::Button("Give EXP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
@@ -506,67 +510,68 @@ namespace DX11_Base {
         void TABItemSpawner()
         {
             static int num_to_add = 1;
-            static int category = 10;
+            static int category = 0;
 
-            ImGui::InputInt("Amount:", &num_to_add);
+            ImGui::InputInt("Num To Add", &num_to_add);
 
-            ImGui::Combo("Item Category", &category, "Accessories\0Ammo\0Armor\0Crafting Materials\0Eggs\0Food\0Hats\0\Medicine\0Money\0Other\0Pal Spheres\0Seeds\0Tools\0Weapons\0\All\0");
+            ImGui::Combo("Item Category", &category, "Accessories\0Ammo\0Armor\0Crafting Materials\0Eggs\0Food\0Hats\0Medicine\0Money\0Other\0Pal Sphere\0Saddles\0Seeds\0Tools\0Weapons\0");
 
-            std::initializer_list list = database::all;
+            std::initializer_list list = itemlist::accessories;
 
             switch (category)
             {
             case 1:
-                list = database::ammo;
+                list = itemlist::ammo;
                 break;
             case 2:
-                list = database::armor;
+                list = itemlist::armor;
                 break;
             case 3:
-                list = database::craftingmaterials;
+                list = itemlist::craftingmaterials;
                 break;
             case 4:
-                list = database::eggs;
+                list = itemlist::eggs;
                 break;
             case 5:
-                list = database::food;
+                list = itemlist::food;
                 break;
             case 6:
-                list = database::hats;
+                list = itemlist::hats;
                 break;
             case 7:
-                list = database::medicine;
+                list = itemlist::medicine;
                 break;
             case 8:
-                list = database::money;
+                list = itemlist::money;
                 break;
             case 9:
-                list = database::other;
+                list = itemlist::other;
                 break;
             case 10:
-                list = database::palspheres;
+                list = itemlist::palspheres;
                 break;
             case 11:
-                list = database::seeds;
+                list = itemlist::palskill;
                 break;
             case 12:
-                list = database::toolss;
+                list = itemlist::seeds;
                 break;
             case 13:
-                list = database::weapons;
+                list = itemlist::tools;
                 break;
             case 14:
-                list = database::all;
+                list = itemlist::weapons;
                 break;
             default:
-                list = database::all;
+                list = itemlist::accessories;
             }
 
             int cur_size = 0;
 
-            static char item_search[100];;
+            static char item_search[100];
 
             ImGui::InputText("Search", item_search, IM_ARRAYSIZE(item_search));
+            ImGui::BeginChild("ScrollingRegion", ImVec2(0, 500), true);
             for (const auto& item : list) {
                 std::istringstream ss(item);
                 std::string left_text, right_text;
@@ -583,148 +588,45 @@ namespace DX11_Base {
                 if (item_search[0] != '\0' && (right_to_lower.find(item_search_to_lower) == std::string::npos))
                     continue;
 
-                if (cur_size != 0 && cur_size < 20)
-                {
-                    ImGui::SameLine();
-                }
-                else if (cur_size != 0)
-                {
-                    cur_size = 0;
-                }
-
                 cur_size += right_text.length();
 
                 ImGui::PushID(item);
                 if (ImGui::Button(right_text.c_str()))
                 {
-                    SDK::UPalPlayerInventoryData* InventoryData = Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->GetInventoryData();//rebas
-                    AddItem(InventoryData, (char*)left_text.c_str(), num_to_add);
+                    SDK::UPalPlayerInventoryData* InventoryData = Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPalPlayerState()->GetInventoryData();
+                    AddItemToInventoryByName(InventoryData, (char*)left_text.c_str(), num_to_add);
                 }
                 ImGui::PopID();
             }
+            ImGui::EndChild();
         }
-        void TABQuickTP() // Credits to NuLLxD for compressing/making it look nicer and saving like 1000 lines of junk.
+
+        void TABTeleporter()
         {
-            class TeleportTabs {
-            public:
-                TeleportTabs() : currentPage(0), buttonsPerPage(9) {
-                    // Add your teleport locations here
-                    locationMap["Anubis"] = Config.AnubisLocation;
-                    locationMap["Azurobe"] = Config.AzurobeLocation;
-                    locationMap["Beakon"] = Config.BeakonLocation;
-                    locationMap["Broncherry Aqua"] = Config.BroncherryAquaLocation;
-                    locationMap["Broncherry"] = Config.BroncherryLocation;
-                    locationMap["Bushi"] = Config.BushiLocation;
-                    locationMap["Chillet"] = Config.ChilletLocation;
-                    locationMap["Dinossom Lux"] = Config.DinossomLuxLocation;
-                    locationMap["Elizabee"] = Config.ElizabeeLocation;
-                    locationMap["Felbat"] = Config.FelbatLocation;
-                    locationMap["Fenglope"] = Config.FenglopeLocation;
-                    locationMap["Frostallion"] = Config.FrostallionLocation;
-                    locationMap["Grintale"] = Config.GrintaleLocation;
-                    locationMap["Gumoss"] = Config.GumossLocation;
-                    locationMap["Jetragon"] = Config.JetragonLocation;
-                    locationMap["Jormuntide2"] = Config.Jormuntide2Location;
-                    locationMap["Jormuntide"] = Config.JormuntideLocation;
-                    locationMap["Katress"] = Config.KatressLocation;
-                    locationMap["Kingpaca"] = Config.KingpacaLocation;
-                    locationMap["Lunaris"] = Config.LunarisLocation;
-                    locationMap["Mammorest"] = Config.MammorestLocation;
-                    locationMap["Menasting"] = Config.MenastingLocation;
-                    locationMap["Mossanda Lux"] = Config.MossandaLuxLocation;
-                    locationMap["Nitewing"] = Config.NitewingLocation;
-                    locationMap["Paladius"] = Config.PaladiusLocation;
-                    locationMap["Penking"] = Config.PenkingLocation;
-                    locationMap["Petallia"] = Config.PetalliaLocation;
-                    locationMap["Quivern"] = Config.QuivernLocation;
-                    locationMap["Relaxasaurus"] = Config.RelaxasaurusLuxLocation;
-                    locationMap["Siblex"] = Config.SiblexLocation;
-                    locationMap["Suzaku"] = Config.SuzakuLocation;
-                    locationMap["Univolt"] = Config.UnivoltLocation;
-                    locationMap["Vaelet"] = Config.VaeletLocation;
-                    locationMap["Verdash"] = Config.VerdashLocation;
-                    locationMap["Warsect"] = Config.WarsectLocation;
-                    locationMap["Wumpo Botan"] = Config.WumpoBotanLocation;
-                    // Add more teleport locations as needed
+            ImGui::Checkbox("Safe Teleport", &Config.IsSafe);
+            ImGui::SameLine();
+            ImGui::Checkbox("Custom Waypoints", &Config.bisOpenWaypoints);
+            if (ImGui::Button("Home", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+                RespawnLocalPlayer(Config.IsSafe);
 
-                    // Extract button names from the map
-                    for (const auto& pair : locationMap) {
-                        teleportLocations.push_back(pair.first);
-                    }
-
-                    UpdateCurrentPageButtons();
+            ImGui::InputFloat3("Pos", Config.Pos);
+            ImGui::SameLine();
+            if (ImGui::Button("TP", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
+            {
+                SDK::FVector vector = { Config.Pos[0],Config.Pos[1],Config.Pos[2] };
+                AnyWhereTP(vector, Config.IsSafe);
+            }
+            ImGui::BeginChild("ScrollingRegion", ImVec2(0, 500), true);
+            for (const auto& pair : database::locationMap)
+            {
+                const std::string& locationName = pair.first;
+                if (ImGui::Button(locationName.c_str()))
+                {
+                    SDK::FVector location = SDK::FVector(pair.second[0], pair.second[1], pair.second[2]);
+                    AnyWhereTP(location, Config.IsSafe);
                 }
-
-                void Draw() {
-                    // Draw buttons only if there are locations
-                    if (teleportLocations.empty()) {
-                        ImGui::Text("No teleport locations available.");
-                        return;
-                    }
-
-                    // Draw buttons
-                    for (int i = 0; i < currentButtons.size(); ++i) {
-                        if (ImGui::Button(currentButtons[i].c_str(), ImVec2(ImGui::GetContentRegionAvail().x - 3, 20))) {
-                            // Button logic
-                            TeleportToLocation(currentButtons[i]);
-                        }
-                    }
-
-                    // Draw page navigation
-                    ImGui::Separator();
-                    ImGui::Text("Page: %d", currentPage + 1);
-                    ImGui::SameLine();
-                    if (ImGui::Button("Previous")) {
-                        currentPage = (currentPage - 1 + totalPages) % totalPages;
-                        UpdateCurrentPageButtons();
-                    }
-                    ImGui::SameLine();
-                    if (ImGui::Button("Next")) {
-                        currentPage = (currentPage + 1) % totalPages;
-                        UpdateCurrentPageButtons();
-                    }
-                }
-
-                void TeleportToLocation(const std::string& location) {
-                    // Check if the location exists in the map
-                    if (locationMap.find(location) != locationMap.end()) {
-                        SDK::FVector vector = { locationMap[location][0], locationMap[location][1], locationMap[location][2] };
-                        AnyWhereTP(vector, Config.IsSafe);
-                    }
-                }
-
-            private:
-                void UpdateCurrentPageButtons() {
-                    int startIdx = currentPage * buttonsPerPage;
-                    int endIdx = (currentPage + 1) * buttonsPerPage;
-
-                    if (startIdx < 0) {
-                        startIdx = 0;
-                    }
-
-                    if (endIdx > teleportLocations.size()) {
-                        endIdx = teleportLocations.size();
-                    }
-
-                    currentButtons.clear();
-                    for (int i = startIdx; i < endIdx; ++i) {
-                        currentButtons.push_back(teleportLocations[i]);
-                    }
-
-                    totalPages = (teleportLocations.size() + buttonsPerPage - 1) / buttonsPerPage;
-                }
-
-            private:
-                std::vector<std::string> teleportLocations;
-                std::vector<std::string> currentButtons;
-                int currentPage;
-                int buttonsPerPage;
-                int totalPages;
-                std::map<std::string, float*> locationMap; // Map button names to their corresponding locations in Config
-            };
-            static TeleportTabs teleportTabs; // Static to retain state between calls
-            // Render your user interface
-            teleportTabs.Draw();
+            }
+            ImGui::EndChild();
         }
 
         void TABDevious()
@@ -1068,6 +970,59 @@ namespace DX11_Base {
         ImGui::End();
     }
 
+    void Menu::Waypoints()
+    {
+        float windowWidth = 300.0f;
+        float windowHeight = 150.0f;
+
+        if (!ImGui::Begin("Waypoints", &g_GameVariables->m_ShowMenu, ImGuiWindowFlags_NoResize))
+        {
+            ImGui::End();
+            return;
+        }
+
+        ImGui::InputTextWithHint("##INPUT_SETWAYPOINT", "Set Name", inputBuffer_setWaypoint, 32);
+        ImGui::SameLine();
+        if (ImGui::Button("Add", ImVec2(ImGui::GetContentRegionAvail().x, 20)))
+        {
+            std::string wpName = inputBuffer_setWaypoint;
+            if (wpName.size() > 0)
+            {
+                AddWaypointLocation(wpName);
+                memset(inputBuffer_setWaypoint, 0, 32);
+            }
+        }
+        ImVec2 contentSize;
+        if (Config.db_waypoints.size() > 0)
+        {
+            if (ImGui::BeginChild("##CHILD_WAYPOINTS", { 0.0f, 100.f }))
+            {
+                DWORD index = -1;
+                for (auto waypoint : Config.db_waypoints)
+                {
+                    index++;
+                    ImGui::PushID(index);
+                    //  ImGui::Checkbox("SHOW", &waypoint.bIsShown);
+                    //  ImGui::SameLine();
+                    if (ImGui::Button(waypoint.waypointName.c_str(), ImVec2(ImGui::GetContentRegionAvail().x, 20)))
+                        AnyWhereTP(waypoint.waypointLocation, false);
+                    ImGui::PopID();
+                }
+
+                contentSize = ImGui::GetWindowSize();
+
+                ImGui::EndChild();
+            }
+        }
+
+        windowWidth = (((windowWidth) > (contentSize.x)) ? (windowWidth) : (contentSize.x));
+        windowHeight = (((windowHeight) > (contentSize.y)) ? (windowHeight) : (contentSize.y));
+        ImGui::SetWindowSize(ImVec2(windowWidth, windowHeight));
+
+        ImGui::End();
+
+    }
+
 	void Menu::MainMenu()
 	{
         if (!g_GameVariables->m_ShowDemo)
@@ -1112,9 +1067,9 @@ namespace DX11_Base {
               Tabs::TABItemSpawner();
               ImGui::EndTabItem();
           }
-          if (ImGui::BeginTabItem("Quick TP"))
+          if (ImGui::BeginTabItem("Teleporter"))
           {
-              Tabs::TABQuickTP();
+              Tabs::TABTeleporter();
               ImGui::EndTabItem();
           }
           if (ImGui::BeginTabItem("GameBreaking"))
@@ -1137,6 +1092,8 @@ namespace DX11_Base {
         }
         ImGui::End();
 
+        if (Config.bisOpenWaypoints)
+            Waypoints();
         
 	}
 

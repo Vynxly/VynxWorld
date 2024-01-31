@@ -46,6 +46,15 @@ SDK::UWorld* config::GetUWorld()
     return (*(SDK::UWorld**)(gworld_ptr));
 }
 
+SDK::APalPlayerController* config::GetPalPlayerController()
+{
+    SDK::APalPlayerCharacter* pPlayer = GetPalPlayerCharacter();
+    if (!pPlayer)
+        return nullptr;
+
+    return static_cast<SDK::APalPlayerController*>(pPlayer->GetPalPlayerController());
+}
+
 SDK::ULocalPlayer* config::GetLocalPlayer()
 {
     SDK::UWorld* pWorld = Config.gWorld;

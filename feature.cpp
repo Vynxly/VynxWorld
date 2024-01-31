@@ -72,6 +72,62 @@ void ESP_DEBUG(float mDist, ImVec4 color, UClass* mEntType)
 	}
 }
 
+void RenderWaypointsToScreen()
+{
+	APalCharacter* pPalCharacater = Config.GetPalPlayerCharacter();
+	APalPlayerController* pPalController = Config.GetPalPlayerController();
+	if (!pPalCharacater || !pPalController)
+		return;
+
+	ImDrawList* draw = ImGui::GetWindowDrawList();
+
+	for (auto waypoint : Config.db_waypoints)
+	{
+		FVector2D vScreen;
+		if (!pPalController->ProjectWorldLocationToScreen(waypoint.waypointLocation, &vScreen, false))
+			continue;
+
+		auto color = ImColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+		draw->AddText(ImVec2(vScreen.X, vScreen.Y), color, waypoint.waypointName.c_str());
+	}
+}
+
+void AddWaypointLocation(std::string wpName)
+{
+	APalCharacter* pPalCharacater = Config.GetPalPlayerCharacter();
+	if (!pPalCharacater)
+		return;
+
+	FVector wpLocation = pPalCharacater->K2_GetActorLocation();
+	FRotator wpRotation = pPalCharacater->K2_GetActorRotation();
+	config::SWaypoint newWaypoint = config::SWaypoint(wpName, wpLocation, wpRotation);
+	Config.db_waypoints.push_back(newWaypoint);
+}
+
+void AddItemToInventoryByName(UPalPlayerInventoryData* data, char* itemName, int count)
+{
+	// obtain lib instance
+	static UKismetStringLibrary* lib = UKismetStringLibrary::GetDefaultObj();
+
+	// Convert FNAME
+	wchar_t  ws[255];
+	swprintf(ws, 255, L"%hs", itemName);
+	FName Name = lib->Conv_StringToName(FString(ws));
+
+	// Call
+	data->RequestAddItem(Name, count, true);
+}
+
+void RespawnLocalPlayer(bool bIsSafe)
+{
+	APalPlayerController* pPalPlayerController = Config.GetPalPlayerController();
+	APalPlayerState* pPalPlayerState = Config.GetPalPlayerState();
+	if (!pPalPlayerController || !pPalPlayerState)
+		return;
+
+	bIsSafe ? pPalPlayerController->TeleportToSafePoint_ToServer() : pPalPlayerState->RequestRespawn();
+}
 
 void ForceJoinGuild(SDK::APalCharacter* targetPlayer)
 {
@@ -85,7 +141,7 @@ void ForceJoinGuild(SDK::APalCharacter* targetPlayer)
 	if (!group)
 		return;
 
-	SDK::FGuid myPlayerId = Config.GetPalPlayerCharacter()->GetPalPlayerController()->GetPlayerUId();
+	SDK::FGuid myPlayerId = Config.GetPalPlayerController()->GetPlayerUId();
 	SDK::FGuid playerId = targetPlayer->CharacterParameterComponent->IndividualHandle->ID.PlayerUId;
 
 	group->RequestJoinGuildForPlayer_ToServer(myPlayerId, playerId);       // One of these does the trick

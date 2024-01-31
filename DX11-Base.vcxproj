@@ -131,7 +131,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>C:\Users\vynxl\OneDrive\Documents\GitHub\VynxWorld\SDK;C:\Users\vynxl\OneDrive\Documents\GitHub\VynxWorld;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\vynxl\OneDrive\Documents\GitHub\VynxWorld\libs;C:\Users\vynxl\OneDrive\Documents\GitHub\VynxWorld\SDK;C:\Users\vynxl\OneDrive\Documents\GitHub\VynxWorld;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalUsingDirectories>C:\Users\vynxl\OneDrive\Documents\GitHub\VynxWorld;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
@@ -175,6 +175,7 @@
     <ClInclude Include="include\Hooking.hpp" />
     <ClInclude Include="include\Menu.hpp" />
     <ClInclude Include="initialize.hpp" />
+    <ClInclude Include="ItemList.hpp" />
     <ClInclude Include="libs\ImGui\imconfig.h" />
     <ClInclude Include="libs\ImGui\imgui.h" />
     <ClInclude Include="libs\ImGui\imgui_impl_dx11.h" />

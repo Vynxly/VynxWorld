@@ -24,6 +24,7 @@ namespace DX11_Base {
 		void Draw();
 		void MainMenu();
 		void ManagerMenu();
+		void Waypoints();
 		void HUD(bool* p_open);
 		void Loops();
 

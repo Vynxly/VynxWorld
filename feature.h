@@ -9,7 +9,15 @@ void SetFullbright(bool bIsSet);
 
 void ForceJoinGuild(SDK::APalCharacter* targetPlayer);
 
+void RespawnLocalPlayer(bool bIsSafe);
+
+void AddWaypointLocation(std::string wpName);
+
+void AddItemToInventoryByName(SDK::UPalPlayerInventoryData* data, char* itemName, int count);
+
 void GiveTechExploit(__int32 Tech);
+
+void RenderWaypointsToScreen();
 
 void ESP_DEBUG(float mDist, ImVec4 color, SDK::UClass* mEntType = SDK::AActor::StaticClass());
 

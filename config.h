@@ -4,6 +4,7 @@
 #include <map>
 #include "SDK.hpp"
 #include "database.h"
+#include "ItemList.hpp"
 #include <iostream>
 #include <fstream>
 
@@ -70,6 +71,7 @@ public:
 	bool isDebugESP = false;
 	bool bisOpenManager = false;
 	bool bisRandomName = false;
+	bool bisOpenWaypoints = false;
 	bool filterCharacters = true;
 	bool filterPlayer = false;
 	bool filterGuilds = false;
@@ -107,6 +109,7 @@ public:
 	static SDK::UWorld* GetUWorld();
 	static SDK::UPalCharacterImportanceManager* GetCharacterImpManager();
 	static SDK::APalPlayerCharacter* GetPalPlayerCharacter();
+	static SDK::APalPlayerController* GetPalPlayerController();
 	static SDK::APalPlayerState* GetPalPlayerState();
 	static SDK::TArray<SDK::APalPlayerCharacter*> GetTAllPlayers();
 	static SDK::UPalPlayerInventoryData* GetInventoryComponent();
@@ -158,6 +161,21 @@ public:
 	float VerdashLocation[3] = { -119349, 288954, 3186.98 };
 	float WarsectLocation[3] = { -226359, 231970, -1807.45 };
 	float WumpoBotanLocation[3] = { -148826, 364859, -1831.33 };
+
+	struct SWaypoint
+	{
+		std::string waypointName;
+		SDK::FVector waypointLocation;
+		SDK::FRotator waypointRotation;
+
+		bool bIsShown = true;
+		float* mColor[4];
+
+		SWaypoint() {};
+		SWaypoint(std::string wpName, SDK::FVector wpLocation, SDK::FRotator wpRotation) { waypointName = wpName; waypointLocation = wpLocation; waypointRotation = wpRotation; }
+	};
+	std::vector<SWaypoint> db_waypoints;
+	std::vector<std::pair<std::string, SDK::UClass*>> db_filteredEnts;
 
 };
 extern config Config;
