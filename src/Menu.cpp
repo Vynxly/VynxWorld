@@ -738,33 +738,35 @@ namespace DX11_Base {
                         Config.GetPalPlayerCharacter()->GetPalPlayerController()->RequestLiftup_ToServer(NULL);
                     }
                 }
+            }
+
             if (ImGui::Button("Bypass Password Locks", ImVec2(ImGui::GetContentRegionAvail().x - 3, 20)))
-                {
-                    SDK::UWorld* world = Config.GetUWorld();
-                    if (!world)
-                        return;
+            {
+                SDK::UWorld* world = Config.GetUWorld();
+                if (!world)
+                    return;
 
-                    SDK::TUObjectArray* objects = world->GObjects;
+                SDK::TUObjectArray* objects = world->GObjects;
 
-                    for (int i = 0; i < objects->NumElements; ++i) {
-                        SDK::UObject* object = objects->GetByIndex(i);
+                for (int i = 0; i < objects->NumElements; ++i) {
+                    SDK::UObject* object = objects->GetByIndex(i);
 
-                        if (!object) {
-                            continue;
-                        }
-
-                        if (!object->IsA(SDK::UPalMapObjectPasswordLockModule::StaticClass())) {
-                            continue;
-                        }
-
-                        SDK::UPalMapObjectPasswordLockModule* locked = (SDK::UPalMapObjectPasswordLockModule*)object;
-                        if (!locked) {
-                            continue;
-                        }
-                        locked->LockState = SDK::EPalMapObjectPasswordLockState::Unlock;
+                    if (!object) {
+                        continue;
                     }
+
+                    if (!object->IsA(SDK::UPalMapObjectPasswordLockModule::StaticClass())) {
+                        continue;
+                    }
+
+                    SDK::UPalMapObjectPasswordLockModule* locked = (SDK::UPalMapObjectPasswordLockModule*)object;
+                    if (!locked) {
+                        continue;
+                    }
+                    locked->LockState = SDK::EPalMapObjectPasswordLockState::Unlock;
                 }
             }
+        
         }
     
         void TABGameBreaking()
