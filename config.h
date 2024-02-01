@@ -37,7 +37,7 @@ class config
 {
 public:
 	DWORD64 ClientBase = 0;
-	DWORD64 offset_Tick = 0x2AB1DC0;//APalPlayerCharacter::Tick
+	DWORD64 offset_Tick = 0x2AD4EC0;//APalPlayerCharacter::Tick
 	DWORD64 offset_CatchRate = 0x26AE100; //APalCaptureJudgeObject::ChallengeCapture
 
 	static void SaveLocation(const std::string& bossName, float x, float y, float z) {
